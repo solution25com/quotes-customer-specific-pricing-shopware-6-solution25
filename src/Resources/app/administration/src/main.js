@@ -1,8 +1,20 @@
 import  './module/customer-specific-price';
 import template from './extension/sw-quote-line-items/sw-quote-line-items.html.twig';
 import './styles/base.scss'
+import './decorator/rule-condition-service-decoration';
+import './extension/sw-quote-send-quote-modal/index'
 Shopware.Component.override('sw-quote-line-items', {
     template,
+    created() {
+        const originalTc = this.$tc;
+        this.$tc = function (key, ...args) {
+            if (key === 'sw-quote.detail.labelVAT') {
+                return 'Tax';
+            }
+
+            return originalTc.call(this, key, ...args);
+        };
+    },
     computed: {
         columns() {
             const baseColumns = this.$super('columns');
@@ -14,6 +26,13 @@ Shopware.Component.override('sw-quote-line-items', {
                 align: 'right',
                 allowResize: true,
             });
+            const taxColumn = baseColumns.find(col => col.property === 'price.taxRules[0]');
+            if (taxColumn) {
+                taxColumn.label = this.$tc('Tax'); 
+            }
+
+            
+
             return baseColumns;
         },
     },

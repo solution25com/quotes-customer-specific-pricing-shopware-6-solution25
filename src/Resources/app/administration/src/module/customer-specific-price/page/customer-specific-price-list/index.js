@@ -28,6 +28,7 @@ Component.register('customer-specific-price-list', {
             columns: [
                 {property: 'id', label: '#ID', visible: false},
                 {property: 'customerName', label: 'Customer Name', sortable: true},
+                {property: 'customerNumber', label: 'Customer Number', sortable: true },
                 {property: 'product', label: 'Product', sortable: true},
                 {property: 'netPrice', label: 'Net Price', sortable: true},
                 {property: 'grossPrice', label: 'Gross Price', sortable: true},
@@ -138,6 +139,7 @@ Component.register('customer-specific-price-list', {
                     id: elem.id,
                     customerId: elem.customerId,
                     customerName: elem.customer ? `${elem.customer.firstName} ${elem.customer.lastName}` : "N/A",
+                    customerNumber: elem.customer?.customerNumber || 'N/A',
                     productId: elem.productId,
                     product: elem.product?.translated?.name || elem.product?.name || "N/A", 
                     netPrice: elem.price?.[0]?.[0]?.net?.toFixed(2) || "N/A",

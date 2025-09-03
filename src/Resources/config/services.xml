@@ -14,11 +14,29 @@
       <tag name="kernel.event_subscriber"/>
     </service>
 
-    <service id="S25Quotes\Subscriber\ProductPageSubscriber">
+    <service id="S25Quotes\EventSubscriber\ProductPageSubscriber">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="product.repository"/>
     </service>
     <!-- END Event Subscribers -->
+
+        <service id="S25Quotes\Cart\PromotionProcessorDecorated"
+                 decorates="Shopware\Core\Checkout\Promotion\Cart\PromotionProcessor">
+          <argument type="service" id="Shopware\Core\Checkout\Promotion\Cart\PromotionCalculator"/>
+          <argument type="service" id="Shopware\Core\Checkout\Cart\LineItem\Group\LineItemGroupBuilder"/>
+          <argument type="service" id="custom_price.repository"/>
+          <argument type="service" id="S25Quotes\Cart\PromotionProcessorDecorated.inner"/>
+          <tag name="shopware.cart.processor" priority="4900"/>
+<!--          <tag name="shopware.cart.processor" priority="-5500"/>-->
+
+        </service>
+
+
+    <service id="S25Quotes\Core\Rule\LineItemHasCustomPriceRule"
+             class="S25Quotes\Core\Rule\LineItemHasCustomPriceRule">
+      <tag name="shopware.rule.definition"/>
+    </service>
+
 
   </services>
 </container>

@@ -1,6 +1,6 @@
 <?php
 
-namespace S25Quotes\Subscriber;
+namespace S25Quotes\EventSubscriber;
 
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\Events\ProductSearchResultEvent;

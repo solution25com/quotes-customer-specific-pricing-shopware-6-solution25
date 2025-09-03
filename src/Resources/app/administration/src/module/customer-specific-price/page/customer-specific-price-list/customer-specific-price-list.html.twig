@@ -25,7 +25,12 @@
                 <a v-else :href="`/admin#/sw/customer/detail/${item.customerId}/base`" class="link">
                     {{ item.customerName }}
                 </a>
-            </template>   <template #column-product="{ item }">
+            </template> 
+            <template #column-customerNumber="{ item }">
+                <sw-skeleton-bar v-if="isLoading" />
+                <span v-else>{{ item.customerNumber }}</span>
+            </template>
+              <template #column-product="{ item }">
                 <sw-skeleton-bar v-if="isLoading" />
                 <span v-else>{{ item.product }}</span>
             </template>
