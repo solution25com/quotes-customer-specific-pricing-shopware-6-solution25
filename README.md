@@ -36,6 +36,9 @@ With this plugin, you can manage custom prices directly in the Shopware Admin, i
 
 ---
 
+## Compatibility
+- ✅ Shopware 6.6.x 
+
 ##  Get Started
 
 ### Prerequisites
