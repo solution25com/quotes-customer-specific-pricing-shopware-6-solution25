@@ -20,7 +20,8 @@ Component.register('sw-product-select', {
       page: 1, 
       limit: 10, 
       columns: [
-        { property: 'label', label: 'Product Name', allowResize: true }
+        { property: 'label', label: 'Product Name', allowResize: true },
+        { property: 'productNumber', label: 'Product Number', allowResize: true }
       ],
     };
   },
@@ -51,10 +52,10 @@ Component.register('sw-product-select', {
         const criteria = this.createCriteria();
 
         const result = await this.repositoryFactory.create('product').search(criteria, Shopware.Context.api);
-
         this.productOptions = result.map(elem => ({
           id: elem.id,
-          label: elem.name,
+          label: elem.name || 'Variant Product',
+          productNumber: elem.productNumber
         }));
 
         this.totalProducts = result.total; 

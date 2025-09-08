@@ -1,4 +1,4 @@
-import { Component } from 'Shopware';
+const { Component } = Shopware;
 
 Component.override('sw-quote-send-quote-modal', {
     created() {

@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "assets/s25-quotes-BEfD4kl6.js",
+    "name": "s25-quotes",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/s25-quotes-BztQ6tER.css"
+    ]
+  }
+}

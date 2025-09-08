@@ -1,5 +1,4 @@
-<template>
-  <sw-card title="Select Product">
+ <sw-card title="Select Product">
     <sw-simple-search-field 
       v-model:value="searchTerm" 
       placeholder="Search for products..."
@@ -17,6 +16,10 @@
       <template #column-name="{ item }">
         {{ item.label }}
       </template>
+
+      <template #column-productNumber="{ item }">
+        {{ item.productNumber }}
+      </template>
     </sw-data-grid>
 
     <sw-pagination
@@ -26,4 +29,3 @@
       @pageChange="onPageChange"
     />
   </sw-card>
-</template>

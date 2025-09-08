@@ -1,10 +1,8 @@
-<template>
-
     <sw-page :headerBorderColor="'#00A1FF'" class="customer-specific-price-list">
         <template #smart-bar-header>
             <sw-page-title class="customPricesTitle">Add Custom Price</sw-page-title>
             <div class="customPricesBtnWrapper">
-                <sw-data-csv @import-start="isImporting = true" @import-finish="handleImportFinish"></sw-data-csv>            
+                <sw-data-csv @import-start="isImporting = true" @import-finish="handleImportFinish"></sw-data-csv>
                     <sw-button
                         variant="primary"
                         @click="openAddCustomPriceModal"
@@ -25,7 +23,7 @@
                 <a v-else :href="`/admin#/sw/customer/detail/${item.customerId}/base`" class="link">
                     {{ item.customerName }}
                 </a>
-            </template> 
+            </template>
             <template #column-customerNumber="{ item }">
                 <sw-skeleton-bar v-if="isLoading" />
                 <span v-else>{{ item.customerNumber }}</span>
@@ -156,5 +154,3 @@
             </sw-button>
         </template>
     </sw-modal>
-
-</template>
