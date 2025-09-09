@@ -2,7 +2,7 @@
     "name": "solution25/quotes-customer-specific-pricing",
     "description": "s25-quotes/s25-quotes",
     "type": "shopware-platform-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "require": {
         "shopware/core": "^6.6 || ^6.7"
