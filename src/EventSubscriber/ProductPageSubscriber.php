@@ -2,20 +2,30 @@
 
 namespace S25Quotes\EventSubscriber;
 
+use Shopware\Core\Content\Product\ProductEntity;
+use Shopware\Storefront\Page\Product\ProductPageLoadedEvent;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\Events\ProductSearchResultEvent;
+use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use Shopware\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Struct\ArrayStruct;
-use Shopware\Storefront\Page\Product\ProductPageLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 
 class ProductPageSubscriber implements EventSubscriberInterface
 {
+  /**
+   * @var EntityRepository<ProductCollection>
+   */
   private EntityRepository $productRepository;
+
+  /**
+   * @param EntityRepository<ProductCollection> $productRepository
+   */
 
   public function __construct(EntityRepository $productRepository)
   {
@@ -49,6 +59,9 @@ class ProductPageSubscriber implements EventSubscriberInterface
     $this->addOriginalPrices($event->getResult()->getEntities(), $event->getContext());
   }
 
+  /**
+   * @param ProductEntity $product
+   */
   private function addOriginalPrice($product, Context $context): void
   {
     $productId = $product->getId();
@@ -85,7 +98,9 @@ class ProductPageSubscriber implements EventSubscriberInterface
     return $price->getGross();
   }
 
-
+  /**
+   * @param ProductCollection $products
+   */
   private function addOriginalPrices($products, Context $context): void
   {
     $productIds = [];
@@ -113,6 +128,10 @@ class ProductPageSubscriber implements EventSubscriberInterface
     }
   }
 
+  /**
+   * @param array<string> $productIds
+   * @return array<string, float>
+   */
   private function getProductPrices(array $productIds, Context $context): array
   {
     $criteria = new Criteria($productIds);

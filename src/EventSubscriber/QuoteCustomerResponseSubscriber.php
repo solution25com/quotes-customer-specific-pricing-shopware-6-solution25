@@ -3,6 +3,10 @@
 namespace S25Quotes\EventSubscriber;
 
 use Shopware\Commercial\B2B\QuoteManagement\Event\QuoteStateMachineStateChangeEvent;
+use Shopware\Core\Checkout\Order\OrderCollection;
+use Shopware\Core\Checkout\Order\OrderEntity;
+use Shopware\Core\Content\Product\ProductCollection;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -13,10 +17,17 @@ class QuoteCustomerResponseSubscriber implements EventSubscriberInterface
 {
 
   private CustomPriceUpdater $customPriceUpdater;
+
+  /** @var EntityRepository<OrderCollection> */
   private EntityRepository $orderRepository;
 
+  /** @var EntityRepository<ProductCollection> */
   private EntityRepository $productRepository;
 
+  /**
+   * @param EntityRepository<OrderCollection>   $orderRepository
+   * @param EntityRepository<ProductCollection> $productRepository
+   */
   public function __construct(
     CustomPriceUpdater $customPriceUpdater,
     EntityRepository   $orderRepository,
@@ -86,12 +97,18 @@ class QuoteCustomerResponseSubscriber implements EventSubscriberInterface
     }
   }
 
+  /**
+   * @return ProductEntity|null
+   */
   private function getProductById(string $productId, Context $context)
   {
     $criteria = new Criteria([$productId]);
     return $this->productRepository->search($criteria, $context)->first();
   }
 
+  /**
+   * @return OrderEntity|null
+   */
   private function getOrderDetailsById(string $orderId, Context $context)
   {
     $criteria = new Criteria([$orderId]);
