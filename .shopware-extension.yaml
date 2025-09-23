@@ -1,0 +1,4 @@
+validation:
+  ignore:
+    - message: 'Class Shopware\Commercial\B2B\QuoteManagement\Event\QuoteStateMachineStateChangeEvent was not found while trying to analyse it - discovering symbols is probably not configured properly.'
+    - message: 'Class Shopware\Commercial\CustomPricing\Domain\CustomPriceUpdater was not found while trying to analyse it - discovering symbols is probably not configured properly.'
