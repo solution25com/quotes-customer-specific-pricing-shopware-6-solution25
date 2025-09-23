@@ -22,8 +22,8 @@
             "en-GB": "s25 Quotes"
         },
         "description": {
-            "en-GB": "This Shopware 6 extension allows merchants to manage customer-specific quotes with individual pricing. It provides powerful B2B functionality, enabling flexible price adjustments and tailored offers.",
-            "de-DE": "Diese Shopware 6 Erweiterung ermöglicht es Händlern, kundenspezifische Angebote mit individuellen Preisen zu verwalten. Sie bietet leistungsstarke B2B-Funktionen mit flexiblen Preisoptionen und personalisierten Angeboten."
+            "en-GB": "This Shopware 6 extension allows merchants to manage customer-specific quotes with individual pricing. It provides powerful B2B functionality, enabling flexible price adjustments.",
+            "de-DE": "Diese Shopware 6 Erweiterung ermöglicht es Händlern, individuelle Angebote mit flexiblen Preisen zu erstellen, effizient zu verwalten und leistungsstarke B2B-Funktionen zu nutzen."
         },
         "manufacturerLink": {
             "en-GB": "https://solution25.com/en/home_en/",

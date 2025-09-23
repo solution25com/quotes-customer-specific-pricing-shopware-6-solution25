@@ -60,6 +60,7 @@ Component.register('sw-product-select', {
 
         this.totalProducts = result.total; 
       } catch (error) {
+        console.error('Failed to fetch products:', error);
       } finally {
         this.isLoading = false;
       }
