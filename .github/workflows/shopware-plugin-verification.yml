@@ -2,9 +2,7 @@ name: Shopware Plugin Verification
 
 on:
   pull_request:
-    branches: 
-      - main
-      - develop
+    branches: [main, develop]
   push:
     branches:
       - '**'
@@ -14,52 +12,35 @@ on:
 jobs:
   verify-plugin:
     name: Verify Shopware Plugin
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        version-selection: 
-          - 'lowest'
-          - 'highest'
+        version-selection: ['lowest', 'highest']
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: composer:v2
-
-      - name: Allow Symfony Runtime Plugin
-        run: composer config --no-plugins allow-plugins.symfony/runtime true
-
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist --no-progress
-
-      - name: Run Shopware CLI Extension Verifier via Docker
+      - name: Run Shopware Extension Verifier
         id: verifier
-        run: |
-          set -e
-          docker run --rm \
-            -v "$PWD:/ext" \
-            ghcr.io/shopware/shopware-cli \
-            extension validate --full /ext \
-            --check-against ${{ matrix.version-selection }} \
-            --reporter github
-        continue-on-error: true
-
-      - name: ✅ Extension Verifier Passed – No errors found
-        if: always() && steps.verifier.outcome == 'success'
-        run: |
-          echo "✅ Shopware Extension Verifier ran successfully. No issues found!"
-          echo "### ✅ Extension Verifier Passed (${matrix.version-selection})" >> $GITHUB_STEP_SUMMARY
+        uses: shopware/github-actions/extension-verifier@main
+        with:
+          action: check
+          check-against: ${{ matrix.version-selection }}
 
       - name: ❌ Extension Verifier Failed – Errors were found
-        if: steps.verifier.outputs.exit_code != '0'
+        if: failure() && steps.verifier.outcome == 'failure'
+        env:
+          VERSION_SELECTION: ${{ matrix.version-selection }}
         run: |
           echo "❌ Shopware Extension Verifier detected issues. Please review and fix them."
-          echo "### ❌ Extension Verifier Failed (${matrix.version-selection})" >> $GITHUB_STEP_SUMMARY
-          exit 1
+          echo "### ❌ Shopware Extension Verifier Failed (${VERSION_SELECTION})" >> $GITHUB_STEP_SUMMARY
+
+      - name: ✅ Extension Verifier Passed – No errors found
+        if: success() && steps.verifier.outcome == 'success'
+        env:
+          VERSION_SELECTION: ${{ matrix.version-selection }}
+        run: |
+          echo "✅ Shopware Extension Verifier ran successfully. No issues found!"
+          echo "### ✅ Shopware Extension Verifier Passed (${VERSION_SELECTION})" >> $GITHUB_STEP_SUMMARY
