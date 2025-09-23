@@ -42,10 +42,10 @@ Component.register('customer-specific-price-list', {
     },
 
     watch: {
-        selectedCustomer(newCustomer) {
+        selectedCustomer() {
             this.fetchExistingPrice();
         },
-        selectedProduct(newProduct) {
+        selectedProduct() {
             this.fetchExistingPrice();
         }
     },
@@ -96,6 +96,7 @@ Component.register('customer-specific-price-list', {
 
                 this.fetchCustomPrices();
             } catch (error) {
+                console.error("Failed to delete the custom price:", error);
                 this.createNotificationError({
                     title: 'Error',
                     message: 'Failed to delete the custom price. Please try again.'

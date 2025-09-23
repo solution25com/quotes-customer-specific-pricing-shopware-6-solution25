@@ -191,7 +191,6 @@ Component.register('sw-data-csv', {
             try {
                 const customPriceRepository = this.repositoryFactory.create("custom_price");
                 const allRecords = [];
-                let page = 1;
                 const limit = 500;
 
                 const countCriteria = new Shopware.Data.Criteria(1, 1);
